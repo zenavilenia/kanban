@@ -22,7 +22,8 @@
                   <div class="form-group-content">
                     <div class="">
                       <i class="validate"></i>
-                      <input type="text" placeholder="Task Title" class="form-control">
+                      <input type="text" placeholder="Task Title" class="form-control"
+                      v-model="task.title">
                       </div>
                     </div>
                   </div>
@@ -30,7 +31,8 @@
                   <label class="form-title">Description</label>
                   <div class="form-group-content">
                     <div class="">
-                      <textarea placeholder="Task Short Description" rows="2" class="form-control"></textarea>
+                      <textarea placeholder="Task Short Description" rows="2"
+                      class="form-control" v-model="task.description"></textarea>
                     </div>
                   </div>
                 </div>
@@ -39,7 +41,8 @@
                   <div class="form-group-content">
                     <div class="">
                       <i class="validate"></i>
-                      <input type="text" placeholder="Task Point" class="form-control">
+                      <input type="text" placeholder="Task Point" class="form-control"
+                      v-model="task.point">
                     </div>
                   </div>
                 </div>
@@ -48,15 +51,17 @@
                   <div class="form-group-content">
                     <div class="">
                       <i class="validate"></i>
-                      <input type="text" placeholder="Assigned To" class="form-control">
+                      <input type="text" placeholder="Assigned To" class="form-control"
+                      v-model="task.assignedTo">
                     </div>
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"
+              @click="close">Close</button>
+              <button class="btn btn-primary" @click="createTask" data-dismiss="modal">Save</button>
             </div>
           </div>
         </div>
@@ -71,9 +76,30 @@ export default {
   name: 'Login',
   data() {
     return {
+      task: {
+        title: '',
+        description: '',
+        point: 0,
+        assignedTo: '',
+        status: 0,
+      },
     };
   },
   methods: {
+    createTask() {
+      console.log('masuk method create task', this.task);
+      this.$emit('submitTask', this.task);
+      this.reset();
+    },
+    close() {
+      this.reset();
+    },
+    reset() {
+      this.task.title = '';
+      this.task.description = '';
+      this.task.point = 0;
+      this.task.assignedTo = '';
+    },
   },
 };
 </script>
